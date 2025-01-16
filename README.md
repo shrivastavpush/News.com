@@ -78,7 +78,7 @@ _Below is an example of how you can instruct your audience on installing and set
 1. Create an account & Get a free API Key at https://newsapi.org/
 2. Clone the repo
    ```sh
-   git clone https://github.com/CuteError/News.com-React.js-.git
+   git clone https://github.com/shrivastavsumit/News.com-React.js-.git
    ```
 3. Install NPM packages
    ```sh
