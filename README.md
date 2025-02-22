@@ -105,7 +105,7 @@ You can use this application as your daily dose of news in your local system.
 
 Pushpendra Shrivastav - https://pushpendra-portfolio.netlify.app/
 
-Project Link: https://github.com/CuteError/News.com-React.js-.git
+Project Link: https://github.com/shrivastavpush/News.com
 
 <p align="right">(<a href="#top">back to top</a>)</p>
   
