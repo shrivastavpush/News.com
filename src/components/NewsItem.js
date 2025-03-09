@@ -1,9 +1,11 @@
 import React from 'react';
+import { Card, Badge, Button } from 'react-bootstrap';
 import { Calendar2Event, Person } from 'react-bootstrap-icons';
 
 const NewsItem = ({ title, description, imageUrl, newsUrl, date, author, source }) => {
     return (
-        <div className="card h-100 border-0 shadow-sm hover-shadow transition-all"
+        <Card
+            className="h-100 border-0 shadow-sm hover-shadow transition-all"
             style={{
                 transition: 'all 0.3s ease',
                 cursor: 'pointer',
@@ -11,19 +13,21 @@ const NewsItem = ({ title, description, imageUrl, newsUrl, date, author, source 
             onClick={() => window.open(newsUrl, '_blank', 'noopener,noreferrer')}
         >
             <div className="position-relative">
-                <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill"
+                <Badge
+                    bg="primary"
+                    className="position-absolute top-0 start-50 translate-middle"
                     style={{
-                        backgroundColor: '#1a73e8',
                         zIndex: 1,
                         fontSize: '0.8rem',
                         padding: '0.5em 1em'
-                    }}>
+                    }}
+                >
                     {source}
-                </span>
-                <div className="img-container position-relative" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
-                    <img
+                </Badge>
+                <div className="img-container position-relative" style={{ paddingTop: '56.25%' }}>
+                    <Card.Img
+                        variant="top"
                         src={imageUrl || "https://placehold.co/600x400?text=News"}
-                        className="card-img-top"
                         alt="News thumbnail"
                         style={{
                             position: 'absolute',
@@ -31,9 +35,8 @@ const NewsItem = ({ title, description, imageUrl, newsUrl, date, author, source 
                             left: 0,
                             width: '100%',
                             height: '100%',
-                            objectFit: 'contain',
-                            backgroundColor: '#f8f9fa',
-                            padding: '0.5rem'
+                            objectFit: 'cover',
+                            backgroundColor: '#f8f9fa'
                         }}
                         onError={(e) => {
                             e.target.src = "https://placehold.co/600x400?text=News";
@@ -41,31 +44,37 @@ const NewsItem = ({ title, description, imageUrl, newsUrl, date, author, source 
                     />
                 </div>
             </div>
-            <div className="card-body d-flex flex-column">
-                <h5 className="card-title mb-2" style={{
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    lineHeight: '1.5',
-                    fontSize: '1.1rem',
-                    fontWeight: '600',
-                    color: '#202124'
-                }}>
+            <Card.Body className="d-flex flex-column">
+                <Card.Title
+                    className="mb-2"
+                    style={{
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        lineHeight: '1.5',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        color: 'var(--text-primary)'
+                    }}
+                >
                     {title}
-                </h5>
-                <p className="card-text mb-3" style={{
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    fontSize: '0.9rem',
-                    color: '#5f6368'
-                }}>
+                </Card.Title>
+                <Card.Text
+                    className="mb-3"
+                    style={{
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        fontSize: '0.9rem',
+                        color: 'var(--text-secondary)'
+                    }}
+                >
                     {description}
-                </p>
+                </Card.Text>
                 <div className="mt-auto">
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center justify-content-between mb-3">
                         <small className="text-muted d-flex align-items-center gap-1">
                             <Person size={14} />
                             {author || "Unknown"}
@@ -75,9 +84,16 @@ const NewsItem = ({ title, description, imageUrl, newsUrl, date, author, source 
                             {new Date(date).toLocaleDateString()}
                         </small>
                     </div>
+                    <Button
+                        variant="primary"
+                        size="sm"
+                        className="w-100"
+                    >
+                        Read more
+                    </Button>
                 </div>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 };
 
