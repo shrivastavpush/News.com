@@ -36,23 +36,46 @@ const App = () => {
     );
   }
 
+  const categories = ['business', 'science', 'technology', 'entertainment', 'health', 'sports'];
+
   return (
     <div>
       <Router>
-        <NavBar />
+        <NavBar categories={categories} />
         <LoadingBar
           height={3}
           color='#f11946'
           progress={progress}
         />
         <Routes>
-          <Route exact path="/" element={<News key="general" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="general" />} />
-          <Route exact path="/business" element={<News key="business" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="business" />} />
-          <Route exact path="/science" element={<News key="science" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="science" />} />
-          <Route exact path="/technology" element={<News key="technology" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="technology" />} />
-          <Route exact path="/entertainment" element={<News key="entertainment" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="entertainment" />} />
-          <Route exact path="/health" element={<News key="health" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="health" />} />
-          <Route exact path="/sports" element={<News key="sports" setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="sports" />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <News
+                setProgress={setProgress}
+                apiKey={apiKey}
+                pageSize={pageSize}
+                category="general"
+              />
+            }
+          />
+          {categories.map(category => (
+            <Route
+              key={category}
+              exact
+              path={`/${category}`}
+              element={
+                <News
+                  key={category}
+                  setProgress={setProgress}
+                  apiKey={apiKey}
+                  pageSize={pageSize}
+                  category={category}
+                />
+              }
+            />
+          ))}
         </Routes>
       </Router>
     </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
@@ -19,7 +18,7 @@ const News = (props) => {
     const updateNews = async () => {
         try {
             props.setProgress(10);
-            const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
+            const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
             setLoading(true)
             setError(null)
 
@@ -82,14 +81,14 @@ const News = (props) => {
     if (error) {
         return (
             <div className="container mt-5">
-                <div className="alert alert-danger" role="alert">
-                    <h4 className="alert-heading">Error Loading News</h4>
-                    <p>{error}</p>
-                    <hr />
-                    <p className="mb-0">
+                <div className="alert alert-danger shadow-sm rounded-4 border-0" role="alert">
+                    <h4 className="alert-heading fw-bold">Error Loading News</h4>
+                    <p className="mb-0 opacity-75">{error}</p>
+                    <hr className="opacity-25" />
+                    <p className="mb-0 small opacity-75">
                         Please check your API key and make sure it's properly configured in the .env file.
                         <br />
-                        Current API Key: {props.apiKey ? '****' + props.apiKey.slice(-4) : 'Not found'}
+                        <span className="text-muted">Current API Key: {props.apiKey ? '****' + props.apiKey.slice(-4) : 'Not found'}</span>
                     </p>
                 </div>
             </div>
@@ -97,34 +96,42 @@ const News = (props) => {
     }
 
     return (
-        <>
-            <h1 className="text-center" style={{ margin: '35px 0px', marginTop: '60px' }}>News.com - Top {capitalizeFirstLetter(props.category)} Headlines</h1>
-            {loading && <Spinner />}
-            <InfiniteScroll
-                dataLength={articles?.length || 0}
-                next={fetchMoreData}
-                hasMore={articles?.length < totalResults}
-                loader={<Spinner />}
-            >
-                <div className="container">
-                    <div className="row">
-                        {articles && articles.map((element) => {
-                            return <div className="col-md-4" key={element.url}>
-                                <NewsItem
-                                    title={element?.title || ""}
-                                    description={element?.description || ""}
-                                    imageUrl={element?.urlToImage}
-                                    newsUrl={element?.url}
-                                    author={element?.author}
-                                    date={element?.publishedAt}
-                                    source={element?.source?.name || "Unknown"}
-                                />
-                            </div>
-                        })}
+        <div className="bg-light min-vh-100">
+            <div className="container">
+                <h1 className="display-5 text-center fw-bold mb-4 pt-4">
+                    <span className="text-primary">News.com</span>
+                    <span className="text-muted"> - {capitalizeFirstLetter(props.category)} Headlines</span>
+                </h1>
+
+                {loading && <div className="text-center py-5"><Spinner /></div>}
+
+                <InfiniteScroll
+                    dataLength={articles?.length || 0}
+                    next={fetchMoreData}
+                    hasMore={articles?.length < totalResults}
+                    loader={<div className="text-center py-4"><Spinner /></div>}
+                    className="pb-4"
+                >
+                    <div className="container px-md-4">
+                        <div className="row g-4">
+                            {articles && articles.map((element) => (
+                                <div className="col-12 col-md-6 col-lg-4" key={element.url}>
+                                    <NewsItem
+                                        title={element?.title || ""}
+                                        description={element?.description || ""}
+                                        imageUrl={element?.urlToImage}
+                                        newsUrl={element?.url}
+                                        author={element?.author}
+                                        date={element?.publishedAt}
+                                        source={element?.source?.name || "Unknown"}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </InfiniteScroll>
-        </>
+                </InfiniteScroll>
+            </div>
+        </div>
     )
 }
 
