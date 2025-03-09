@@ -99,8 +99,7 @@ const News = (props) => {
         <div className="bg-light min-vh-100">
             <div className="container">
                 <h1 className="display-5 text-center fw-bold mb-4 pt-4">
-                    <span className="text-primary">News.com</span>
-                    <span className="text-muted"> - {capitalizeFirstLetter(props.category)} Headlines</span>
+                    {capitalizeFirstLetter(props.category)} Headlines
                 </h1>
 
                 {loading && <div className="text-center py-5"><Spinner /></div>}
@@ -110,7 +109,7 @@ const News = (props) => {
                     next={fetchMoreData}
                     hasMore={articles?.length < totalResults}
                     loader={<div className="text-center py-4"><Spinner /></div>}
-                    className="pb-4"
+                    className="pb-4 pt-4"
                 >
                     <div className="container px-md-4">
                         <div className="row g-4">
