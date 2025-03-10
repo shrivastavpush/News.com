@@ -3,6 +3,7 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
+import sampleData from '../sampleData.json';
 
 const News = (props) => {
     const [articles, setArticles] = useState([])
@@ -40,7 +41,8 @@ const News = (props) => {
             console.error('News API Error:', err);
             setError(err.message || 'Failed to fetch news. Please check your API key.')
             setLoading(false)
-            setArticles([])
+            setArticles(sampleData.articles)
+            setTotalResults(sampleData.totalResults)
             props.setProgress(100);
         }
     }
